@@ -129,7 +129,7 @@ For testing via the admin panel:
 
 ## ✅ Live URL (Example)
 ```
-https://yourusername.pythonanywhere.com/
+https://viveknhebbar9164.pythonanywhere.com/
 ```
 
 ---

@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'tasks/css/auth.css' %}">
+</head>
+<body>
+  <div class="container">
+    <div class="form-box">
+      <h2>Register</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="btn-group">
+          <button type="submit">Register</button>
+          <a href="{% url 'login' %}" class="login-link">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

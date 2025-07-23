@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Update Task</title>
+  <link rel="stylesheet" href="{% static 'tasks/css/styles.css' %}">
+</head>
+<body class="container">
+  <h2 class="heading">✏️ Update Task</h2>
+
+  <form id="update-form" class="task-form">
+    {% csrf_token %}
+    <input name="title" id="title" placeholder="Title" required><br>
+    <textarea name="description" id="description" placeholder="Description" required></textarea><br>
+    <input type="date" name="due_date" id="due_date" required><br>
+    <label><input type="checkbox" name="completed" id="completed"> Completed</label><br>
+    <button class="submit-btn" type="submit">Update Task</button>
+  </form>
+
+  <script>
+    const taskId = "{{ task_id }}";
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch(`/api/tasks/${taskId}/`)
+        .then(res => res.json())
+        .then(task => {
+          document.getElementById('title').value = task.title;
+          document.getElementById('description').value = task.description;
+          document.getElementById('due_date').value = task.due_date;
+          document.getElementById('completed').checked = task.completed;
+        });
+    });
+
+    document.getElementById('update-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const data = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value,
+        due_date: document.getElementById('due_date').value,
+        completed: document.getElementById('completed').checked
+      };
+
+      fetch(`/api/tasks/${taskId}/`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCSRFToken()
+        },
+        body: JSON.stringify(data)
+      })
+        .then(res => res.json())
+        .then(() => {
+          alert('Task updated!');
+          window.location.href = '/';
+        });
+    });
+
+    function getCSRFToken() {
+      return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Task</title>
+  <link rel="stylesheet" href="{% static 'tasks/css/styles.css' %}">
+</head>
+<body class="container">
+  <h2 class="heading">📝 Create New Task</h2>
+
+  <form id="task-form" class="task-form">
+    {% csrf_token %}
+    <label>Title:</label><br>
+    <input type="text" name="title" required><br><br>
+
+    <label>Description:</label><br>
+    <textarea name="description"></textarea><br><br>
+
+    <label>Due Date:</label><br>
+    <input type="date" name="due_date"><br><br>
+
+    <button class="submit-btn" type="submit">Create Task</button>
+  </form>
+
+  <p style="margin-top: 20px;"><a href="{% url 'task-page' %}">← Back to Task List</a></p>
+
+  <script src="{% static 'tasks/js/create_task.js' %}"></script>
+</body>
+</html>

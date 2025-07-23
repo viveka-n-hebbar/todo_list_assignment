@@ -1,122 +1,157 @@
-# 📝 Django Task Manager App
+# 📝 ToDo List Assignment (Django App)
 
-A simple Task Manager web application built using **Django** and **Django REST Framework (DRF)**.  
-Users can register, login, and manage their personal tasks — including create, update, delete, and mark them as completed. Admin users can access and assign tasks to others.
-
-> ✅ Deployed at: [https://your-pythonanywhere-link](https://your-pythonanywhere-link)  
-> 🔑 Sample Admin Login:  
-> • **Username**: `vivek`  
-> • **Password**: `123`
+This is a simple Django-based task management system created for assignment evaluation.  
+The project supports user login, task creation, completion toggle, update, and deletion — all connected to user-specific views and managed via Django's admin and templates.
 
 ---
 
-## 🗂️ Project Structure
+## 🔧 Folder Structure
 
 ```
 todo_list_assignment/
-├── manage.py
-├── db.sqlite3
-├── requirements.txt
-├── README.md
-├── todo_list_assignment/
+│
+├── django_learning_test/        # Django project folder
 │   ├── __init__.py
 │   ├── settings.py
 │   ├── urls.py
-│   └── wsgi.py
-├── tasks/
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── serializers.py
-│   ├── views.py
-│   ├── urls.py
+│   ├── wsgi.py
+│   └── ...
+│
+├── tasks/                       # Django app
+│   ├── migrations/
 │   ├── templates/
-│   │   └── tasks/
-│   │       ├── register.html
-│   │       ├── login.html
-│   │       ├── task_list.html
-│   │       ├── create_task.html
-│   │       └── update_task.html
+│   │   ├── task_list.html
+│   │   └── update_task.html
 │   ├── static/
-│   │   └── tasks/
-│   │       ├── css/
-│   │       │   └── styles.css
-│   │       └── js/
-│   │           └── task_list.js
+│   ├── admin.py
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+│
+├── db.sqlite3                   # Preloaded database with sample user
+├── manage.py
+└── README.md
 ```
 
 ---
 
-## 🛠️ Setup Instructions
+## 👤 Sample Admin User
 
-### 1. Clone the Repository
+For testing via the admin panel:
 
-```bash
-git clone https://github.com/viveka-n-hebbar/todo_list_assignment.git
-cd todo_list_assignment
-```
-
-### 2. Create Virtual Environment (optional but recommended)
-
-```bash
-python -m venv env
-source env/bin/activate   # On Windows use: env\Scripts\activate
-```
-
-### 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-If `requirements.txt` is missing, manually install:
-
-```bash
-pip install django djangorestframework
-```
-
-### 4. Run Migrations
-
-```bash
-python manage.py migrate
-```
-
-
-### 5. Run the Development Server
-
-```bash
-python manage.py runserver
-```
-
-Then open in browser: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+- **Username**: `vivek`
+- **Password**: `123`
 
 ---
 
-## 🌐 Deployment (PythonAnywhere)
+## ⚙️ Installation (Local Setup)
 
-You can deploy easily on [PythonAnywhere](https://www.pythonanywhere.com/):
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/viveka-n-hebbar/todo_list_assignment.git
+   cd todo_list_assignment
+   ```
 
-- Upload the full project along with `db.sqlite3` for demo testing.
-- Configure WSGI, Virtualenv, and Static Files.
-- Use the provided admin user: `vivek / 123`
+2. **Create a virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install django
+   ```
+
+4. **(Optional) If db.sqlite3 is missing, migrate manually**
+   ```bash
+   python manage.py migrate
+   python manage.py createsuperuser
+   ```
+
+5. **Run the server**
+   ```bash
+   python manage.py runserver
+   ```
+
+6. Visit `http://127.0.0.1:8000/` in your browser.
+
+---
+
+## 🚀 Deployment on PythonAnywhere
+
+1. **Log in to PythonAnywhere**
+   - Create a free account at [pythonanywhere.com](https://www.pythonanywhere.com)
+
+2. **Open Bash console and clone repo**
+   ```bash
+   git clone https://github.com/viveka-n-hebbar/todo_list_assignment.git
+   cd todo_list_assignment
+   ```
+
+3. **Create virtual environment**
+   ```bash
+   python3.10 -m venv venv
+   source venv/bin/activate
+   pip install django
+   ```
+
+4. **Configure web app**
+   - Go to "Web" tab → Add a new web app → Manual config → Python 3.10
+   - Set source directory: `/home/yourusername/todo_list_assignment`
+   - Set WSGI file path:  
+     `/home/yourusername/todo_list_assignment/django_learning_test/wsgi.py`
+
+5. **Edit WSGI configuration**
+   Replace content with:
+
+   ```python
+   import os
+   import sys
+
+   path = '/home/yourusername/todo_list_assignment'
+   if path not in sys.path:
+       sys.path.append(path)
+
+   os.environ['DJANGO_SETTINGS_MODULE'] = 'django_learning_test.settings'
+
+   from django.core.wsgi import get_wsgi_application
+   application = get_wsgi_application()
+   ```
+
+6. **Set static files** in PythonAnywhere Web tab:
+   - URL: `/static/`
+   - Directory: `/home/yourusername/todo_list_assignment/static/`
+
+7. **Reload the web app** from the top of the Web tab.
+
+---
+
+## ✅ Live URL (Example)
+```
+https://yourusername.pythonanywhere.com/
+```
 
 ---
 
 ## 📌 Features
 
-- User Registration & Login
-- Task CRUD (Create, Read, Update, Delete)
-- Mark task as Completed
-- Admin task assignment (via Django Admin panel)
-- Responsive design for desktop & mobile
+- Admin panel with login
+- Create, update, delete tasks
+- Mark tasks as complete/incomplete
+- User-specific task filtering
+- Responsive UI using simple HTML templates
 
 ---
 
-## ✅ Sample Login
+## 📬 Author
 
-| Role  | Username | Password |
-|-------|----------|----------|
-| Admin | `vivek`  | `123`    |
+**Vivek N. Hebbar**  
+GitHub: [@viveka-n-hebbar](https://github.com/viveka-n-hebbar)
 
+---
+
+## 🛡️ License
+
+This project is for educational/demo purposes only.
 
